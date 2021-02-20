@@ -1,0 +1,124 @@
+{
+    "listeners": {
+        "*:80": {
+            "pass": "routes/nextcloud"
+        }
+    },
+
+    "routes": {
+        "nextcloud": [
+            {
+                "match": {
+                    "uri": [
+                        "/build/*",
+                        "/tests/*",
+                        "/config/*",
+                        "/lib/*",
+                        "/3rdparty/*",
+                        "/templates/*",
+                        "/data/*",
+                        "/.*",
+                        "/autotest*",
+                        "/occ*",
+                        "/issue*",
+                        "/indie*",
+                        "/db_*",
+                        "/console*"
+                    ]
+                },
+
+                "action": {
+                    "return": 404
+                }
+            },
+            {
+                "match": {
+                    "uri": [
+                        "/core/ajax/update.php*",
+                        "/cron.php*",
+                        "/index.php*",
+                        "/ocm-provider*.php*",
+                        "/ocs-provider*.php*",
+                        "/ocs/v1.php*",
+                        "/ocs/v2.php*",
+                        "/public.php*",
+                        "/remote.php*",
+                        "/status.php*",
+                        "/updater*.php*"
+                    ]
+                },
+
+                "action": {
+                    "pass": "applications/nextcloud/direct"
+                }
+            },
+            {
+                "match": {
+                    "uri": "/ocm-provider*"
+                },
+
+                "action": {
+                    "pass": "applications/nextcloud/ocm"
+                }
+            },
+            {
+                "match": {
+                    "uri": "/ocs-provider*"
+                },
+
+                "action": {
+                    "pass": "applications/nextcloud/ocs"
+                }
+            },
+            {
+                "match": {
+                    "uri": "/updater*"
+                },
+
+                "action": {
+                    "pass": "applications/nextcloud/updater"
+                }
+            },
+            {
+                "action": {
+                    "share": "/srv/nextcloud/",
+                    "fallback": {
+                        "pass": "applications/nextcloud/index"
+                    }
+                }
+            }
+        ]
+    },
+
+    "applications": {
+        "nextcloud": {
+            "type": "php",
+            "targets": {
+                "direct": {
+                    "root": "/srv/nextcloud/"
+                },
+
+                "index": {
+                    "root": "/srv/nextcloud",
+                    "script": "index.php"
+                },
+
+                "ocm": {
+                    "root": "/srv/nextcloud/ocm-provider/",
+                    "script": "index.php"
+                },
+
+
+                "ocs": {
+                    "root": "/srv/nextcloud/ocs-provider/",
+                    "script": "index.php"
+                },
+
+                "updater": {
+                    "root": "/srv/nextcloud/updater/",
+                    "script": "index.php"
+                }
+            }
+        }
+    }
+}
