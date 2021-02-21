@@ -1,6 +1,6 @@
 {
     "listeners": {
-        "*:80": {
+        "unix:/socket/nextcloud/nextcloud.sock": {
             "pass": "routes/nextcloud"
         }
     },
