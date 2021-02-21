@@ -61,7 +61,7 @@ RUN	chmod +x /entrypoint.sh
 
 RUN	rm -r /opt/lib/php/build && rm -r /opt/lib/php/test
 
-RUN	apk --no-cache add openssl imap-dev pcre2-dev libxml2-dev oniguruma sqlite-libs libldap libcurl curl icu-libs libpq libzip gmp libbz2 imagemagick-libs libsmbclient libmemcached-libs ffmpeg freetype
+RUN	apk --no-cache add openssl imap-dev pcre2-dev libxml2-dev oniguruma sqlite-libs libldap libcurl curl icu-libs libpq libzip gmp libbz2 imagemagick-libs libsmbclient libmemcached-libs ffmpeg freetype libgd
 
 VOLUME	[ "/socket/control", "/socket/nextcloud", "/data", "/config/php", "/config/unit" ]
 
